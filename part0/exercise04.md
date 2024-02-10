@@ -1,3 +1,5 @@
+#Creating a new note on the page https://studies.cs.helsinki.fi/exampleapp/notes
+
 ```mermaid
 sequenceDiagram
     participant browser
