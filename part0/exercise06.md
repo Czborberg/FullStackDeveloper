@@ -1,4 +1,4 @@
-#loading the page https://studies.cs.helsinki.fi/exampleapp/spa
+#Adding a new note on the page https://studies.cs.helsinki.fi/exampleapp/spa
 
 ```mermaid
 sequenceDiagram
