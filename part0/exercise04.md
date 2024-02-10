@@ -8,7 +8,7 @@ sequenceDiagram
     server-->>browser: status code 302 (Location: /notes)
     deactivate server
 
-    Note right of browser: The browser receives the POST request and respons with a URL redirect, prompting the server to reload the page.
+    Note right of browser: The browser updates the notes json and prompts the server to reload the page.
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
