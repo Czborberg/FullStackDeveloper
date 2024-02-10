@@ -3,6 +3,13 @@ sequenceDiagram
     participant browser
     participant server
 
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    Note right of browser: The browser receives the POST request and respons with a URL redirect, prompting the server to reload the page.
+
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: HTML document
