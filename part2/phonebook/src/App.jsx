@@ -70,8 +70,7 @@ console.log('render', persons.length, 'persons');
       })
   }
 
-  const removePerson = id => {
-    const person = persons.find(person => person.id === id)
+  const removePerson = (id) => {
     console.log('button clicked', id)
     if (window.confirm(`Delete ${persons.find(person => person.id === id).name}?`)) {
       phonebookService
