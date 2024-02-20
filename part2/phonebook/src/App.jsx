@@ -3,12 +3,14 @@ import phonebookService from './services/phonebook'
 import Filter from './components/Filter'
 import NewPhonebookEntry from './components/NewPhonebookEntry'
 import Showphonebook from './components/ShowPhonebook'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [showFiltered, setShowFiltered] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState([])
 
   useEffect(() => {
     console.log('effect')
@@ -68,15 +70,31 @@ console.log('render', persons.length, 'persons');
         setNewName('')
         setNewNumber('')
       })
+    setNotificationMessage({message: `Added '${personObject.name}' to the phonebook`,color: 'green'})
+    console.log('notificationMessage', notificationMessage);
+    setTimeout(() => {
+      setNotificationMessage({message: null})
+    }, 5000)
+
+    
   }
 
   const removePerson = (id) => {
     console.log('button clicked', id)
-    if (window.confirm(`Delete ${persons.find(person => person.id === id).name}?`)) {
+    const removedpersonname=persons.find(person => person.id === id).name
+    if (window.confirm(`Delete ${removedpersonname}?`)) {
       phonebookService
         .remove(id)
         .then(() => {
           setPersons(persons.filter(person => person.id !== id))
+        })
+        .catch(error => {
+          console.log('error', error);
+          setNotificationMessage({message: `Information of '${removedpersonname}' was already removed from server`,color: 'red'}
+          )
+          setTimeout(() => {
+            setNotificationMessage({message: null})
+          }, 5000)
         })
     }
   }
@@ -85,6 +103,7 @@ console.log('render', persons.length, 'persons');
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notificationMessage.message} color={notificationMessage.color} />
       <Filter handleFilterChange={handleFilterChange}/>
       <h3>Add a new</h3>
       <NewPhonebookEntry addPerson={addPerson} newName={newName} newNumber={newNumber} handlePersonChange={handlePersonChange} handleNumberChange={handleNumberChange}/>
